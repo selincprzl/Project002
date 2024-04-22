@@ -11,11 +11,10 @@ namespace Project002.Repository.Models
         public int WarId { get; set; }
         public string WarName { get; set;}
         public int DeathCount { get; set; }
-
-        public string StartDate { get; set; }
-
-        public string EndDate { get; set; }
         public string Location { get; set; }
+
+        //many to many between clan and war
+        public List<Clan> Clans { get; set; }
 
     }
 }

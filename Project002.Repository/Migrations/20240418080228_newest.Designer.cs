@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project002.Repository.Models;
 
@@ -10,9 +11,10 @@ using Project002.Repository.Models;
 namespace Project002.Repository.Migrations
 {
     [DbContext(typeof(Dbcontext))]
-    partial class DbcontextModelSnapshot : ModelSnapshot
+    [Migration("20240418080228_newest")]
+    partial class newest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,21 +22,6 @@ namespace Project002.Repository.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("ClanWar", b =>
-                {
-                    b.Property<int>("ClansClanId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WarsWarId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ClansClanId", "WarsWarId");
-
-                    b.HasIndex("WarsWarId");
-
-                    b.ToTable("ClanWar");
-                });
 
             modelBuilder.Entity("Project002.Repository.Models.Armour", b =>
                 {
@@ -200,7 +187,15 @@ namespace Project002.Repository.Migrations
                     b.Property<int>("DeathCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("EndDate")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StartDate")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -228,21 +223,6 @@ namespace Project002.Repository.Migrations
                     b.HasKey("WeaponId");
 
                     b.ToTable("Weapon");
-                });
-
-            modelBuilder.Entity("ClanWar", b =>
-                {
-                    b.HasOne("Project002.Repository.Models.Clan", null)
-                        .WithMany()
-                        .HasForeignKey("ClansClanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Project002.Repository.Models.War", null)
-                        .WithMany()
-                        .HasForeignKey("WarsWarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

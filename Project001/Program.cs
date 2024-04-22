@@ -30,6 +30,20 @@ namespace Project001
             builder.Services.AddScoped<ITimePeriodRepository, TimePeriodRepo>();
 
             builder.Services.AddDbContext<Dbcontext>(obj => obj.UseSqlServer(conStr));
+
+            //cors thread problems
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("coffee",
+                                      policy =>
+                                      {
+                                          policy.WithOrigins().AllowAnyOrigin()
+                                                              .AllowAnyMethod()
+                                                              .AllowAnyMethod();
+                                      });
+            });
+
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -42,6 +56,9 @@ namespace Project001
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors("coffee");
+
 
             app.UseHttpsRedirection();
 

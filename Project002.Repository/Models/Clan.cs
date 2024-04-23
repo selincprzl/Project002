@@ -8,10 +8,12 @@ namespace Project002.Repository.Models
 {
     public class Clan
     {
-        public int ClanId { get; set; }
+        public int? ClanId { get; set; }
 
-        public string ClanName { get; set; }
-        public List<War> Wars { get; set; }
+        public string? ClanName { get; set; }
+        public List<War>? Wars { get; set; }
+        public List<Samurai>? Samurai { get; set; }
+
 
     }
 }

@@ -8,8 +8,11 @@ namespace Project002.Repository.Models
 {
     public class Horse
     {
-        public int HorseId { get; set; }
-        public string HorseName { get; set; }
-        public string Description { get; set; }
+        public int? HorseId { get; set; }
+        public string? HorseName { get; set; }
+        public string? Description { get; set; }
+
+        public Samurai? Samurai { get; set; }
+
     }
 }

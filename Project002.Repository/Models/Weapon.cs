@@ -8,7 +8,10 @@ namespace Project002.Repository.Models
 {
     public class Weapon
     {
-        public int WeaponId { get; set; }
-        public string WeaponName { get; set; }
+        public int? WeaponId { get; set; }
+        public string? WeaponName { get; set; }
+
+        public List<Samurai>? Samurai { get; set; }
+
     }
 }

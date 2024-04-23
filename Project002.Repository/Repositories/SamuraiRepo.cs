@@ -34,7 +34,7 @@ namespace Project002.Repository.Repositories
                 
         }       
 
-       public List<Samurai> GetAll()
+       public ICollection<Samurai> GetAll()
         {
             return context.Samurai.ToList();
         }

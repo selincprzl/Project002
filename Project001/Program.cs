@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Project002.Repository.Interfaces;
 using Project002.Repository.Models;
 using Project002.Repository.Repositories;
+using Project002.Repository.Services;
 
 namespace Project001
 {
@@ -28,7 +29,7 @@ namespace Project001
             builder.Services.AddScoped<IArmourRepository, ArmourRepo>();
             builder.Services.AddScoped<IRankRepository, RankRepo>();
             builder.Services.AddScoped<ITimePeriodRepository, TimePeriodRepo>();
-
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddDbContext<Dbcontext>(obj => obj.UseSqlServer(conStr));
 
             //cors thread problems

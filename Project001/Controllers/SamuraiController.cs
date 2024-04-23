@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Project002.Repository.DTOs;
 using Project002.Repository.Interfaces;
 using Project002.Repository.Models;
 using Project002.Repository.Repositories;
@@ -10,25 +12,28 @@ namespace Project001.Controllers
     public class SamuraiController : ControllerBase
     {
         private readonly ISamuraiRepository _samuraiRepo;
+        IMapper _mapper;
 
         //Constractor: is a special method in a class. It has the same name as the class name
         //can be used to assign arguments to fields when creating an object.
 
 
         //this is a constractor / and constractor is always called - not defined
-        public SamuraiController(ISamuraiRepository repo) {
-        this._samuraiRepo = repo;
+        public SamuraiController(ISamuraiRepository repo, IMapper mapper) {
+            this._samuraiRepo = repo;
+            this._mapper = mapper;
         }
-
+        
 
 
         // GET: api/<SamuraiController>
         [HttpGet] //this is a DataAnnotation / Attribute /its a rule. defines what method is able to do or a class
-        public IEnumerable<Samurai> GetAll()
+        public ActionResult GetAll()
           
         {
-            var result = _samuraiRepo.GetAll();
-            return result;
+            var items = _mapper.Map<List<SamuraiDTO>>(_samuraiRepo.GetAll());
+
+            return Ok(items);
         }
 
 

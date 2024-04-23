@@ -26,13 +26,15 @@ namespace Project002.Repository.Models
 
         public int Age { get; set; }
 
-        public int ClanId { get; set; }
+        public Clan? Clan { get; set; } // Navigation property
+        public Rank? Rank { get; set; }
 
-        public int TransportId { get; set; }
+        public List<War>? War { get; set; }
+        public List<Armour>? Armour { get; set; }
+        public List<Clothing>? Clothing { get; set; }
+        public List<Horse>? Horse { get; set; }
+        public List<Weapon>? Weapon { get; set; }
 
-        public int WarId { get; set; }
-        public int ArmourId { get; set; }
-        public int ClothingId { get; set; }
 
 
     }

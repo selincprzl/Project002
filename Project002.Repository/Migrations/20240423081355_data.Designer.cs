@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project002.Repository.Models;
 
@@ -11,9 +12,10 @@ using Project002.Repository.Models;
 namespace Project002.Repository.Migrations
 {
     [DbContext(typeof(Dbcontext))]
-    partial class DbcontextModelSnapshot : ModelSnapshot
+    [Migration("20240423081355_data")]
+    partial class data
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,16 +71,18 @@ namespace Project002.Repository.Migrations
 
             modelBuilder.Entity("Project002.Repository.Models.Armour", b =>
                 {
-                    b.Property<int?>("ArmourId")
+                    b.Property<int>("ArmourId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("ArmourId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ArmourId"), 1L, 1);
 
                     b.Property<string>("ArmourDescription")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ArmourName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ArmourId");
@@ -88,13 +92,14 @@ namespace Project002.Repository.Migrations
 
             modelBuilder.Entity("Project002.Repository.Models.Clan", b =>
                 {
-                    b.Property<int?>("ClanId")
+                    b.Property<int>("ClanId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("ClanId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClanId"), 1L, 1);
 
                     b.Property<string>("ClanName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ClanId");
@@ -104,16 +109,18 @@ namespace Project002.Repository.Migrations
 
             modelBuilder.Entity("Project002.Repository.Models.Clothing", b =>
                 {
-                    b.Property<int?>("ClothingId")
+                    b.Property<int>("ClothingId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("ClothingId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClothingId"), 1L, 1);
 
                     b.Property<string>("ClothingDescription")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClothingName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ClothingId");
@@ -123,16 +130,18 @@ namespace Project002.Repository.Migrations
 
             modelBuilder.Entity("Project002.Repository.Models.Horse", b =>
                 {
-                    b.Property<int?>("HorseId")
+                    b.Property<int>("HorseId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("HorseId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HorseId"), 1L, 1);
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HorseName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("SamuraiId")
@@ -147,13 +156,14 @@ namespace Project002.Repository.Migrations
 
             modelBuilder.Entity("Project002.Repository.Models.Rank", b =>
                 {
-                    b.Property<int?>("RankId")
+                    b.Property<int>("RankId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("RankId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RankId"), 1L, 1);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RankId");
@@ -163,25 +173,27 @@ namespace Project002.Repository.Migrations
 
             modelBuilder.Entity("Project002.Repository.Models.Samurai", b =>
                 {
-                    b.Property<int?>("SamuraiId")
+                    b.Property<int>("SamuraiId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("SamuraiId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SamuraiId"), 1L, 1);
 
-                    b.Property<int?>("Age")
+                    b.Property<int>("Age")
                         .HasColumnType("int");
 
                     b.Property<int?>("ClanId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("RankId")
                         .HasColumnType("int");
 
                     b.Property<string>("SamuraiName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("SamuraiId");
@@ -195,13 +207,14 @@ namespace Project002.Repository.Migrations
 
             modelBuilder.Entity("Project002.Repository.Models.TimePeriod", b =>
                 {
-                    b.Property<int?>("TimePeriodId")
+                    b.Property<int>("TimePeriodId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("TimePeriodId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TimePeriodId"), 1L, 1);
 
                     b.Property<string>("Date")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("TimePeriodId");
@@ -211,19 +224,21 @@ namespace Project002.Repository.Migrations
 
             modelBuilder.Entity("Project002.Repository.Models.War", b =>
                 {
-                    b.Property<int?>("WarId")
+                    b.Property<int>("WarId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("WarId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WarId"), 1L, 1);
 
-                    b.Property<int?>("DeathCount")
+                    b.Property<int>("DeathCount")
                         .HasColumnType("int");
 
                     b.Property<string>("Location")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("WarName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("WarId");
@@ -233,13 +248,14 @@ namespace Project002.Repository.Migrations
 
             modelBuilder.Entity("Project002.Repository.Models.Weapon", b =>
                 {
-                    b.Property<int?>("WeaponId")
+                    b.Property<int>("WeaponId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("WeaponId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WeaponId"), 1L, 1);
 
                     b.Property<string>("WeaponName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("WeaponId");
@@ -339,26 +355,20 @@ namespace Project002.Repository.Migrations
 
             modelBuilder.Entity("Project002.Repository.Models.Horse", b =>
                 {
-                    b.HasOne("Project002.Repository.Models.Samurai", "Samurai")
+                    b.HasOne("Project002.Repository.Models.Samurai", null)
                         .WithMany("Horse")
                         .HasForeignKey("SamuraiId");
-
-                    b.Navigation("Samurai");
                 });
 
             modelBuilder.Entity("Project002.Repository.Models.Samurai", b =>
                 {
-                    b.HasOne("Project002.Repository.Models.Clan", "Clan")
+                    b.HasOne("Project002.Repository.Models.Clan", null)
                         .WithMany("Samurai")
                         .HasForeignKey("ClanId");
 
-                    b.HasOne("Project002.Repository.Models.Rank", "Rank")
+                    b.HasOne("Project002.Repository.Models.Rank", null)
                         .WithMany("Samurai")
                         .HasForeignKey("RankId");
-
-                    b.Navigation("Clan");
-
-                    b.Navigation("Rank");
                 });
 
             modelBuilder.Entity("SamuraiWar", b =>

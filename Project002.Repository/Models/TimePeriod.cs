@@ -8,7 +8,9 @@ namespace Project002.Repository.Models
 {
     public class TimePeriod
     {
-        public int TimePeriodId { get; set; }
-        public string Date { get; set;}
+        public int? TimePeriodId { get; set; }
+        public string? Date { get; set;}
+        public List<War>? War { get; set; }
+
     }
 }

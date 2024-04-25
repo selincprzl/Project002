@@ -1,52 +1,62 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Project002.Repository.DTOs;
-using Project002.Repository.Interfaces;
+﻿using Microsoft.AspNetCore.Mvc;
+using Project002.Repository;
 using Project002.Repository.Models;
-using Project002.Repository.Repositories;
+using Project002.Repository.Interfaces;
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Project001.Controllers
+namespace Project002Api.Controllers
 {
-    [Route("api/[controller]")] //our URL
+    [Route("api/[controller]")] // our URL
     [ApiController] //this we will take in another afsnit
     public class SamuraiController : ControllerBase
     {
         private readonly ISamuraiRepository _samuraiRepo;
-        IMapper _mapper;
 
-        //Constractor: is a special method in a class. It has the same name as the class name
-        //can be used to assign arguments to fields when creating an object.
-
-
-        //this is a constractor / and constractor is always called - not defined
-        public SamuraiController(ISamuraiRepository repo, IMapper mapper) {
-            this._samuraiRepo = repo;
-            this._mapper = mapper;
+        public SamuraiController(ISamuraiRepository samuraiRepo)
+        {
+            _samuraiRepo = samuraiRepo;
         }
-        
+
+
 
 
         // GET: api/<SamuraiController>
-        [HttpGet] //this is a DataAnnotation / Attribute /its a rule. defines what method is able to do or a class
-        public ActionResult GetAll()
-          
+        //This is a DataAnnotation / Attribute
+        [HttpGet]
+        public IEnumerable<Samurai> GetAll()
         {
-            var items = _mapper.Map<List<SamuraiDTO>>(_samuraiRepo.GetAll());
+            //If i want too DEBUG!
 
-            return Ok(items);
+            var result = _samuraiRepo.GetAll();
+            return result;
         }
 
 
-
-        // POST api/<SamuraiController>
-        //Signature- Prototype / method
+        //CREATE
         [HttpPost]
         public void Create(Samurai samurai)
         {
             _samuraiRepo.Create(samurai);
-            
         }
 
+
+
+        // DELETE api/<SamuraiController>/5
+        [HttpDelete("{id}")]
+        public bool Delete(int id)
+        {
+            // Retrieve the Samurai object from the database using the provided ID
+            Samurai samuraiToDelete = _samuraiRepo.GetAll().FirstOrDefault(s => s.SamuraiId == id);
+
+            if (samuraiToDelete == null)
+            {
+                // Return false or handle the case where the Samurai object with the provided ID doesn't exist
+                return false;
+            }
+
+            // Call the Delete method in your repository to delete the Samurai object
+            return _samuraiRepo.Delete(samuraiToDelete);
+        }
         [HttpPut("{id}")]
         public ActionResult<Samurai> Update(int id, Samurai samurai)
         {
@@ -80,21 +90,5 @@ namespace Project001.Controllers
             return samurai;
         }
 
-        // DELETE api/<SamuraiController>/5
-        [HttpDelete("{id}")]
-        public bool Delete(int id)
-        {
-            // Retrieve the Samurai object from the database using the provided ID
-            Samurai samuraiToDelete = _samuraiRepo.GetAll().FirstOrDefault(s => s.SamuraiId == id);
-
-            if (samuraiToDelete == null)
-            {
-                // Return false or handle the case where the Samurai object with the provided ID doesn't exist
-                return false;
-            }
-
-            // Call the Delete method in your repository to delete the Samurai object
-            return _samuraiRepo.Delete(samuraiToDelete);
-        }
     }
 }

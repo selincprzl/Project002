@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using Project002.Repository.Models;
 using Microsoft.EntityFrameworkCore;
 using Project002.Repository.Interfaces;
-using Project002.Repository.DTOs;
-using AutoMapper;
 
 namespace Project002.Repository.Repositories
 {
@@ -16,13 +14,11 @@ namespace Project002.Repository.Repositories
         //we create this property so we can use it many times in each method,
         //instead of creating it many times in others.
         private readonly Dbcontext context;
-        private readonly IMapper mapper; 
 
         //this is dependency injection, 
         public SamuraiRepo(Dbcontext data)
         {
             this.context = data;
-            this.mapper = mapper;
         }
 
        //Access Modifier: void er en type, der kommer ikke noget retur når man vælger at bruge void

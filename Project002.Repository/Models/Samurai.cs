@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Project002.Repository.Models
@@ -26,13 +27,26 @@ namespace Project002.Repository.Models
 
         public int Age { get; set; }
 
+        [JsonIgnore]
+
         public Clan? Clan { get; set; } // Navigation property
+        [JsonIgnore]
+
         public Rank? Rank { get; set; }
 
+        [JsonIgnore]
         public List<War>? War { get; set; }
+        [JsonIgnore]
+
         public List<Armour>? Armour { get; set; }
+        [JsonIgnore]
+
         public List<Clothing>? Clothing { get; set; }
+        [JsonIgnore]
+
         public List<Horse>? Horse { get; set; }
+        [JsonIgnore]
+
         public List<Weapon>? Weapon { get; set; }
 
 

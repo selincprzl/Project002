@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Project002.Repository.Interfaces;
 using Project002.Repository.Models;
 using Project002.Repository.Repositories;
-using Project002.Repository.Services;
 
 namespace Project001
 {

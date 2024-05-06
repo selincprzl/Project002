@@ -11,9 +11,9 @@ namespace Project002.Repository.Models
     {
         public int? WeaponId { get; set; }
         public string? WeaponName { get; set; }
-        [JsonIgnore]
 
         public List<Samurai>? Samurai { get; set; }
+
 
     }
 }

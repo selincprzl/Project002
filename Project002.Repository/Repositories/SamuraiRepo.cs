@@ -35,13 +35,21 @@ namespace Project002.Repository.Repositories
 
         }
 
-        public ICollection<Samurai> GetAll()
+        public List<Samurai> GetAll()
         {
-            return context.Samurai.ToList();
+            return context.Samurai.Include(s => s.Clan)
+                .Include (s => s.Weapon)
+                .Include (s=> s.War)
+                .Include (s=> s.Armour)
+                .Include(s=> s.Horse)
+                .Include(s=>s.Rank)
+                .ToList();
+
         }
 
 
-        public Samurai GetById(int id)
+
+        public Samurai GetById(int id)  
         {
             return context.Samurai.FirstOrDefault(s => s.SamuraiId == id);
         }

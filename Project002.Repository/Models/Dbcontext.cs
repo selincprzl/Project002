@@ -33,6 +33,9 @@ namespace Project002.Repository.Models
         public DbSet<Rank> Rank { get; set; }
 
         public DbSet<TimePeriod> TimePeriod { get; set; }
+
+        public DbSet<Admin> Admin { get; set; }
+
     }
 
 }

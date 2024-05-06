@@ -7,7 +7,7 @@ using Project002.Repository.Repositories;
 
 namespace Project001.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]")] //our URL
     [ApiController]
     public class HorseController : ControllerBase
     {
@@ -18,7 +18,6 @@ namespace Project001.Controllers
             this._horseRepo = repo;
         }
 
-        // GET: api/<Horse>
         [HttpGet]
         public IEnumerable<Horse> GetAll()
         {
@@ -27,7 +26,6 @@ namespace Project001.Controllers
 
         }
 
-        // POST api/<Horse>
         [HttpPost]
         public void Create(Horse horse)
         {
@@ -48,7 +46,6 @@ namespace Project001.Controllers
                 return NotFound();
             }
 
-            // Ensure that the ID of the provided entity matches the ID in the request path
             horse.HorseId = id;
 
             _horseRepo.Update(horse);
@@ -68,7 +65,6 @@ namespace Project001.Controllers
         }
 
 
-        // DELETE api/<Horse>/5
         [HttpDelete("{id}")]
         public bool Delete(int id)
         {

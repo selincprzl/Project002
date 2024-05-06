@@ -8,26 +8,28 @@ using Project002.Repository.Repositories;
 
 namespace Project001.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]")] //our URL
     [ApiController]
 
     
     public class WeaponController : ControllerBase
 
     {
-        // This is like a special function that sets up the controller.
-        //It takes something called a "repository" as input. A repository helps us interact with our database.
+        //_weaponRepo is like a container that holds informations about weapons.
+        //readonly means it cannot be changed once its set.
         private readonly IWeaponRepository _weaponRepo;
         
+        //sets up the WeaponController to use a repository for weapons, storing it as _weaponRepo.(signature)
 
         public WeaponController (IWeaponRepository repo)
         {
             this._weaponRepo = repo;
         }
 
-        // GET: api/<WeaponController>
-        //when someone wants to "get" information, they should use this method.
-        [HttpGet]
+        //method that brings all the weapons
+        //IEnumerable means that the GetAll() is returning a list of Weapon objects that can be loop through.
+        [HttpGet]//This is a DataAnnotion / Attribute / its a rule. defines what method is able to do.
+
         public IEnumerable<Weapon> GetAll()
 
         {
@@ -35,34 +37,28 @@ namespace Project001.Controllers
             return result;
         }
 
-        //When someone wants to "post" or add something, they should use this method.
+        //gets the weapon by their id.
+        [HttpGet("{id}")]
+        public ActionResult<Weapon> GetById(int id)
+        {
+            //it checks if the provided id exists, if yes then it finds it if not, returns a NotFound error.
+            var weapon = _weaponRepo.GetById(id);
+            if (weapon == null)
+            {
+                return NotFound();
+            }
+            return weapon;
+        }
+
+        //creating a weapon by passing an weapon object to the _weaponRepo.Create()method. (signature)
         [HttpPost]
         public void Create(Weapon weapon)
         {
             _weaponRepo.Create(weapon);
         }
 
-        // DELETE api/<WeaponController>/5
-        [HttpDelete("{id}")]
-
-        //This function finds a weapon by its ID and deletes it from the database.
-        public bool Delete(int id)
-        {
-            // Retrieve the Samurai object from the database using the provided ID
-            Weapon weaponToDelete = _weaponRepo.GetAll().FirstOrDefault(w => w.WeaponId == id);
-
-            if (weaponToDelete == null)
-            {
-                // Return false or handle the case where the Samurai object with the provided ID doesn't exist
-                return false;
-            }
-
-            // Call the Delete method in your repository to delete the Samurai object
-            return _weaponRepo.Delete(weaponToDelete);
-        }
-
-
         [HttpPut("{id}")]
+        //checks if the provided id exists, if yes then it updates the armour, if not then it gives an error
         public ActionResult<Weapon> Update(int id, Weapon weapon)
         {
             if (id != weapon.WeaponId)
@@ -83,17 +79,32 @@ namespace Project001.Controllers
             return Ok(weapon);
         }
 
+        //a method that deletes. it checks if the provided id exists, if yes, then deletes it. if not then
+        //returns false
+        
+        [HttpDelete("{id}")]
 
-        [HttpGet("{id}")]
-        public ActionResult<Weapon> GetById(int id)
+        public bool Delete(int id)
+
         {
-            var weapon = _weaponRepo.GetById(id);
-            if (weapon == null)
+            //looks for the weapon object from the database using the provided ID
+            Weapon weaponToDelete = _weaponRepo.GetAll().FirstOrDefault(w => w.WeaponId == id);
+
+            if (weaponToDelete == null)
             {
-                return NotFound();
+                //return false if the provided id doesnt exist
+                return false;
             }
-            return weapon;
+
+            // Calls the Delete method in repository to delete the armour object
+            return _weaponRepo.Delete(weaponToDelete);
         }
+
+
+  
+
+
+ 
 
 
 

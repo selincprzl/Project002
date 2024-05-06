@@ -7,56 +7,53 @@ using Project002.Repository.Interfaces;
 namespace Project002Api.Controllers
 {
     [Route("api/[controller]")] // our URL
-    [ApiController] //this we will take in another afsnit
+    [ApiController]
     public class SamuraiController : ControllerBase
     {
+        //_samuraiRepo is like a container that holds informations about samurai
+        //readonly means, it cannot be changed once its set
         private readonly ISamuraiRepository _samuraiRepo;
 
+        //sets up SamuraiController to use a repository for samurai, storing it as _samuraiRepo.(signature=
         public SamuraiController(ISamuraiRepository samuraiRepo)
         {
             _samuraiRepo = samuraiRepo;
         }
 
 
-
-
-        // GET: api/<SamuraiController>
-        //This is a DataAnnotation / Attribute
+        //method that bring all the Samurais.
+        //IEnumerable means that GetAll() is returning a list of Samurai objects that can be looped through.
+       //DataAnnotion / Attribute / its a rule. defines what method is able to do or not.
         [HttpGet]
         public IEnumerable<Samurai> GetAll()
         {
-            //If i want too DEBUG!
 
             var result = _samuraiRepo.GetAll();
             return result;
         }
 
-
-        //CREATE
-        [HttpPost]
-        public void Create(Samurai samurai)
+        //gets the samurai by its id
+        [HttpGet("{id}")]
+        public ActionResult<Samurai> GetById(int id)
         {
-            _samuraiRepo.Create(samurai);
-        }
-
-
-
-        // DELETE api/<SamuraiController>/5
-        [HttpDelete("{id}")]
-        public bool Delete(int id)
-        {
-            // Retrieve the Samurai object from the database using the provided ID
-            Samurai samuraiToDelete = _samuraiRepo.GetAll().FirstOrDefault(s => s.SamuraiId == id);
-
-            if (samuraiToDelete == null)
+            var samurai = _samuraiRepo.GetById(id);
+            if (samurai == null)
             {
-                // Return false or handle the case where the Samurai object with the provided ID doesn't exist
-                return false;
+                return NotFound();
             }
-
-            // Call the Delete method in your repository to delete the Samurai object
-            return _samuraiRepo.Delete(samuraiToDelete);
+            return samurai;
         }
+
+        //Creates a samurai by passin an Samurai object to the _samuraiRepo.Create() method.
+        
+        [HttpPost]
+        public ActionResult Create(Samurai samurai)
+        {
+            var sam = _samuraiRepo.Create(samurai);
+            return Ok(sam);
+        }
+
+
         [HttpPut("{id}")]
         public ActionResult<Samurai> Update(int id, Samurai samurai)
         {
@@ -71,7 +68,6 @@ namespace Project002Api.Controllers
                 return NotFound();
             }
 
-            // Ensure that the ID of the provided entity matches the ID in the request path
             samurai.SamuraiId = id;
 
             _samuraiRepo.Update(samurai);
@@ -79,15 +75,20 @@ namespace Project002Api.Controllers
         }
 
 
-        [HttpGet("{id}")]
-        public ActionResult<Samurai> GetById(int id)
+
+
+
+        [HttpDelete("{id}")]
+        public bool Delete(int id)
         {
-            var samurai = _samuraiRepo.GetById(id);
-            if (samurai == null)
+            Samurai samuraiToDelete = _samuraiRepo.GetAll().FirstOrDefault(s => s.SamuraiId == id);
+
+            if (samuraiToDelete == null)
             {
-                return NotFound();
+                return false;
             }
-            return samurai;
+
+            return _samuraiRepo.Delete(samuraiToDelete);
         }
 
     }

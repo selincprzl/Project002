@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project002.Repository.Models;
 
@@ -11,9 +12,10 @@ using Project002.Repository.Models;
 namespace Project002.Repository.Migrations
 {
     [DbContext(typeof(Dbcontext))]
-    partial class DbcontextModelSnapshot : ModelSnapshot
+    [Migration("20240503074244_asd")]
+    partial class asd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -155,7 +157,7 @@ namespace Project002.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("RankId"), 1L, 1);
 
-                    b.Property<string>("RankName")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RankId");

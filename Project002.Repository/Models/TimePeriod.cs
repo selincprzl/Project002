@@ -11,7 +11,6 @@ namespace Project002.Repository.Models
     {
         public int TimePeriodId { get; set; }
         public string Date { get; set;}
-        [JsonIgnore]
 
         public List<War>? War { get; set; }
 

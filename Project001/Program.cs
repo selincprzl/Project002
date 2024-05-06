@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Project002.Repository.Interfaces;
 using Project002.Repository.Models;
 using Project002.Repository.Repositories;
+using Microsoft.Extensions.DependencyInjection;
+using System.Text.Json.Serialization;
 
 namespace Project001
 {
@@ -30,45 +32,53 @@ namespace Project001
             builder.Services.AddScoped<ITimePeriodRepository, TimePeriodRepo>();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddDbContext<Dbcontext>(obj => obj.UseSqlServer(conStr));
+            //builder.Services.AddControllers().AddJsonOptions(x =>
+            //    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+            builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
+
+
 
             //cors thread problems
             builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("coffee",
-                                      policy =>
-                                      {
-                                          policy.WithOrigins().AllowAnyOrigin()
-                                                              .AllowAnyMethod()
-                                                              .AllowAnyMethod();
-                                      });
-            });
+                    {
+                        options.AddPolicy("coffee",
+                                              policy =>
+                                              {
+                                                  policy.WithOrigins().AllowAnyOrigin()
+                                                                      .AllowAnyMethod()
+                                                                      .AllowAnyHeader();
+                                              });
+                    });
 
 
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+                    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+                    builder.Services.AddEndpointsApiExplorer();
+                    builder.Services.AddSwaggerGen();
 
-            var app = builder.Build();
+                    var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+                    // Configure the HTTP request pipeline.
+                    if (app.Environment.IsDevelopment())
+                    {
+                        app.UseSwagger();
+                        app.UseSwaggerUI();
+                    }
 
-            app.UseCors("coffee");
-
-
-            app.UseHttpsRedirection();
-
-            app.UseAuthorization();
+                    app.UseCors("coffee");
 
 
-            app.MapControllers();
+                    app.UseHttpsRedirection();
 
-            app.Run();
-            #endregion add features
-        }
+                    app.UseAuthorization();
+
+
+                    app.MapControllers();
+
+                    app.Run();
+                    #endregion add features
+                }
     }
-}
+        }
+    
+

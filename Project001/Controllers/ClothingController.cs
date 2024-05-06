@@ -6,16 +6,15 @@ using Project002.Repository.Repositories;
 namespace Project001.Controllers
 {
     [Route("api/[controller]")] //our URL
-    [ApiController] //this we will take in another afsnit
+    [ApiController] 
     public class ClothingController : ControllerBase
     {
+        //_clothingRepo is like a container that holds information about clothing
+        //readonly means, it cannot be changed once its set.
         private readonly IClothingRepository _clothingRepo;
 
-        //Constractor: is a special method in a class. It has the same name as the class name
-        //can be used to assign arguments to fields when creating an object.
-
-
-        //this is a constractor / and constractor is always called - not defined
+        //sets up the ClanController to use a repository for clans, storing it as
+        //_clothingRepo. (signature)
         public ClothingController(IClothingRepository repo)
         {
             this._clothingRepo = repo;
@@ -23,7 +22,9 @@ namespace Project001.Controllers
 
 
 
-        // GET: api/<ClothingController>
+        //Method that brings all the Clothing
+        //IEnumerable means that the GetAll() is returning a list of Clothing
+        //objects that can be looped through.
         [HttpGet] //this is a DataAnnotation / Attribute /its a rule. defines what method is able to do or a class
         public IEnumerable<Clothing> GetAll()
 
@@ -32,10 +33,19 @@ namespace Project001.Controllers
             return result;
         }
 
+        //gets clothing by their id.
+        [HttpGet("{id}")]
+        public ActionResult<Clothing> GetById(int id)
+        {
+            var clothes = _clothingRepo.GetById(id);
+            if (clothes == null)
+            {
+                return NotFound();
+            }
+            return clothes;
+        }
 
-
-        // POST api/<ClothingController>
-        //Signature- Prototype / method
+        //Creating clothing by passing a Clothing object to the _clothingRepo.Create() method.
         [HttpPost]
         public void Create(Clothing clothing)
         {
@@ -43,6 +53,7 @@ namespace Project001.Controllers
 
         }
 
+        //checks if provided id exists, if yes then it updates the clothing. if not, then it gives notfound error.
         [HttpPut("{id}")]
         public ActionResult<Clothing> Update(int id, Clothing clothing)
         {
@@ -65,18 +76,9 @@ namespace Project001.Controllers
         }
 
 
-        [HttpGet("{id}")]
-        public ActionResult<Clothing> GetById(int id)
-        {
-            var clothes = _clothingRepo.GetById(id);
-            if (clothes == null)
-            {
-                return NotFound();
-            }
-            return clothes;
-        }
 
-        // DELETE api/<ClothingController>/5
+        //method that deletes. it checks if the provided id exists, if yes then it deletes it
+        //if not, then it returns false.
         [HttpDelete("{id}")]
         public bool Delete(int id)
         {

@@ -10,9 +10,8 @@ namespace Project002.Repository.Models
     public class Rank
     {
         public int? RankId { get; set; }
-        public string? Name { get; set; }
+        public string? RankName { get; set; }
 
-        [JsonIgnore]
         public List<Samurai>? Samurai { get; set; }
 
     }

@@ -12,7 +12,6 @@ namespace Project002.Repository.Models
         public int? HorseId { get; set; }
         public string? HorseName { get; set; }
         public string? Description { get; set; }
-        [JsonIgnore]
         public Samurai? Samurai { get; set; }
 
     }

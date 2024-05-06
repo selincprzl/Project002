@@ -9,18 +9,16 @@ using Project002.Repository.Repositories;
 namespace Project001.Controllers
 {
     [Route("api/[controller]")] //our URL
-    [ApiController] //this we will take in another afsnit
+    [ApiController] 
     public class WarController : ControllerBase
     {
         private readonly IWarRepository _warRepo;
 
-        //this is a constractor / and constractor is always called - not defined
         public WarController(IWarRepository repo)
         {
             this._warRepo = repo;
         }
 
-        // GET: api/<SamuraiController>
         [HttpGet]
         public IEnumerable<War> GetAll()
 
@@ -50,7 +48,6 @@ namespace Project001.Controllers
                 return NotFound();
             }
 
-            // Ensure that the ID of the provided entity matches the ID in the request path
             war.WarId = id;
 
             _warRepo.Update(war);
@@ -69,20 +66,16 @@ namespace Project001.Controllers
             return war;
         }
 
-        // DELETE api/<SamuraiController>/5
         [HttpDelete("{id}")]
         public bool Delete(int id)
         {
-            // Retrieve the Samurai object from the database using the provided ID
             War warToDelete = _warRepo.GetAll().FirstOrDefault(w => w.WarId == id);
 
             if (warToDelete == null)
             {
-                // Return false or handle the case where the Samurai object with the provided ID doesn't exist
                 return false;
             }
 
-            // Call the Delete method in your repository to delete the Samurai object
             return _warRepo.Delete(warToDelete);
         }
     }

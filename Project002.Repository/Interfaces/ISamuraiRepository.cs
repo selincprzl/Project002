@@ -10,7 +10,7 @@ namespace Project002.Repository.Interfaces
     public interface ISamuraiRepository
     {
         Samurai Create(Samurai samurai);
-        ICollection<Samurai> GetAll();
+        List<Samurai> GetAll();
         Samurai GetById(int id);
         bool Delete(Samurai samurai);
 

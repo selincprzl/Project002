@@ -7,7 +7,7 @@ using Project002.Repository.Repositories;
 
 namespace Project001.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]")] //our URL
     [ApiController]
     public class TimePeriodController : ControllerBase
     {
@@ -18,7 +18,6 @@ namespace Project001.Controllers
             this._timePeriodRepo = repo;
         }
 
-        // GET: api/<Country>
         [HttpGet]
         public IEnumerable<TimePeriod> GetAll()
         {
@@ -27,7 +26,6 @@ namespace Project001.Controllers
 
         }
 
-        // POST api/<Country>
         [HttpPost]
         public void Create(TimePeriod timePeriod)
         {
@@ -48,7 +46,6 @@ namespace Project001.Controllers
                 return NotFound();
             }
 
-            // Ensure that the ID of the provided entity matches the ID in the request path
             timePeriod.TimePeriodId = id;
 
             _timePeriodRepo.Update(timePeriod);
@@ -68,7 +65,6 @@ namespace Project001.Controllers
         }
 
 
-        // DELETE api/<Country>/5
         [HttpDelete("{id}")]
         public bool Delete(int id)
         {

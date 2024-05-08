@@ -15,11 +15,8 @@ namespace Project002.Repository.Models
         public string? Location { get; set; }
 
         //many to many between clan and war
+        [JsonIgnore]
         public List<Clan>? Clans { get; set; }
-        public List<Samurai>? Samurai { get; set; }
-
-
-
 
     }
 }

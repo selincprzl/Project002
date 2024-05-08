@@ -22,10 +22,10 @@ namespace Project002.Repository.Repositories
             this.context = data;
         }
 
-       //Access Modifier: void er en type, der kommer ikke noget retur når man vælger at bruge void
-       //if its boolean, there is a return
-       //inside the parantese we always write variables
-       //worst method is Lambda
+        //Access Modifier: void er en type, der kommer ikke noget retur når man vælger at bruge void
+        //if its boolean, there is a return
+        //inside the parantese we always write variables
+        //worst method is Lambda
         public Samurai Create(Samurai samurai)
         {
 
@@ -39,17 +39,16 @@ namespace Project002.Repository.Repositories
         public List<Samurai> GetAll()
         {
             return context.Samurai.Include(s => s.Clan)
-                .Include (s => s.Weapon)
-                .Include (s=> s.War)
-                .Include (s=> s.Armour)
-                .Include(s=> s.Horse)
+                .Include(s => s.Weapon)
+                .Include(s => s.Armour)
+                .Include(s => s.Horse)
                 .ToList();
 
         }
 
 
 
-        public Samurai GetById(int id)  
+        public Samurai GetById(int id)
         {
             return context.Samurai.FirstOrDefault(s => s.SamuraiId == id);
         }
@@ -74,7 +73,7 @@ namespace Project002.Repository.Repositories
 
         public Samurai Update(Samurai samurai)
         {
-            var existingSamurai= context.Samurai.Find(samurai.SamuraiId);
+            var existingSamurai = context.Samurai.Find(samurai.SamuraiId);
             if (existingSamurai == null)
             {
                 throw new ArgumentException("Samurai not found");
@@ -86,55 +85,74 @@ namespace Project002.Repository.Repositories
             context.SaveChanges();
             return existingSamurai;
         }
-
         public void CreateSamuraiWithLists(Samurai samurai)
         {
-            //Samurai samTheGoodGuy = new Samurai { SamuraiId = 0, SamuraiName = "bandit", Description = "blabla", Age = 167 };
+
             Samurai sam = new Samurai()
             {
                 SamuraiName = samurai.SamuraiName,
                 Description = samurai.Description,
-                Age = samurai.Age
+                Age = samurai.Age,
             };
-            context.Samurai.Add(sam);
-            foreach (Horse horse in samurai.Horse)
+            // Add Samurai to context
+            context.Samurai.Add(samurai);
+
+            if(samurai.Clan != null)
             {
-                var result = context.Horse.Find(horse.HorseId);
-                if (result != null)
+                foreach(Clan c in samurai.Clan.ToList())
                 {
-                    sam.Horse.Add(result);
+                    sam.Clan.Add(c);
                 }
             }
-            context.SaveChanges();
-            foreach (Armour armour in samurai.Armour)
+
+            // Add Horse to Samurai
+            foreach (Horse horse in samurai.Horse.ToList())
             {
-                var result = context.Armour.Find(armour.ArmourId);
-                if (result != null)
-                {
-                    sam.Armour.Add(result);
-                }
+                    sam.Horse.Add(horse);
             }
-            context.SaveChanges();
-            foreach (War war in samurai.War)
-            {
-                var result = context.War.Find(war.WarId);
-                if (result != null)
-                {
-                    sam.War.Add(result);
-                }
-            }
-            context.SaveChanges();
-            foreach (Weapon weapon in samurai.Weapon)
-            {
-                var result = context.Weapon.Find(weapon.WeaponId);
-                if (result != null)
-                {
-                    sam.Weapon.Add(result);
-                }
-            }
+
+            // Add Weapons to Samurai
+            //foreach (Weapon weapon in samurai.Weapon.ToList())
+            //{
+            //    var result = context.Weapon.Find(weapon.WeaponId);
+            //    if (result != null)
+            //    {
+            //        sam.Weapon.Add(result);
+            //    }
+            //}
+
+            //// Add Armor to Samurai
+            //foreach (Armour armor in samurai.Armour.ToList())
+            //{
+            //    var result = context.Armour.Find(armor.ArmourId);
+            //    if (result != null)
+            //    {
+            //        sam.Armour.Add(result);
+            //    }
+            //}
+
+            //foreach (War war in samurai.War.ToList())
+            //{
+            //    var result = context.War.Find(war.WarId);
+            //    if (result != null)
+            //    {
+            //            sam.War.Add(result);
+            //    }
+            //}
+
+            //Add Clan to K
+            //sam.Clan.A
+
+            //var clanResult = context.Clan.Find(samurai.Clan.ClanId);
+            //if (clanResult != null)
+            //{
+            //    sam.Clan.Add
+            //}
+
+            // Save changes to the context
             context.SaveChanges();
         }
 
-    }
 
+    }
 }

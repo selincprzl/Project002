@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Project002.Repository.Interfaces;
-using Project002.Repository.Migrations;
 using Project002.Repository.Models;
 using Project002.Repository.Repositories;
 

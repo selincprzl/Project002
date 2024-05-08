@@ -82,7 +82,12 @@ namespace Project002.Repository.Migrations
                     b.Property<string>("ClanName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("SamuraiId")
+                        .HasColumnType("int");
+
                     b.HasKey("ClanId");
+
+                    b.HasIndex("SamuraiId");
 
                     b.ToTable("Clan");
                 });
@@ -142,9 +147,6 @@ namespace Project002.Repository.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ClanId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -154,8 +156,6 @@ namespace Project002.Repository.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("SamuraiId");
-
-                    b.HasIndex("ClanId");
 
                     b.ToTable("Samurai");
                 });
@@ -196,21 +196,6 @@ namespace Project002.Repository.Migrations
                     b.HasKey("WeaponId");
 
                     b.ToTable("Weapon");
-                });
-
-            modelBuilder.Entity("SamuraiWar", b =>
-                {
-                    b.Property<int>("SamuraiId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WarId")
-                        .HasColumnType("int");
-
-                    b.HasKey("SamuraiId", "WarId");
-
-                    b.HasIndex("WarId");
-
-                    b.ToTable("SamuraiWar");
                 });
 
             modelBuilder.Entity("SamuraiWeapon", b =>
@@ -258,6 +243,15 @@ namespace Project002.Repository.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Project002.Repository.Models.Clan", b =>
+                {
+                    b.HasOne("Project002.Repository.Models.Samurai", "Samurai")
+                        .WithMany("Clan")
+                        .HasForeignKey("SamuraiId");
+
+                    b.Navigation("Samurai");
+                });
+
             modelBuilder.Entity("Project002.Repository.Models.Horse", b =>
                 {
                     b.HasOne("Project002.Repository.Models.Samurai", "Samurai")
@@ -265,30 +259,6 @@ namespace Project002.Repository.Migrations
                         .HasForeignKey("SamuraiId");
 
                     b.Navigation("Samurai");
-                });
-
-            modelBuilder.Entity("Project002.Repository.Models.Samurai", b =>
-                {
-                    b.HasOne("Project002.Repository.Models.Clan", "Clan")
-                        .WithMany("Samurai")
-                        .HasForeignKey("ClanId");
-
-                    b.Navigation("Clan");
-                });
-
-            modelBuilder.Entity("SamuraiWar", b =>
-                {
-                    b.HasOne("Project002.Repository.Models.Samurai", null)
-                        .WithMany()
-                        .HasForeignKey("SamuraiId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Project002.Repository.Models.War", null)
-                        .WithMany()
-                        .HasForeignKey("WarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("SamuraiWeapon", b =>
@@ -306,13 +276,10 @@ namespace Project002.Repository.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Project002.Repository.Models.Clan", b =>
-                {
-                    b.Navigation("Samurai");
-                });
-
             modelBuilder.Entity("Project002.Repository.Models.Samurai", b =>
                 {
+                    b.Navigation("Clan");
+
                     b.Navigation("Horse");
                 });
 #pragma warning restore 612, 618

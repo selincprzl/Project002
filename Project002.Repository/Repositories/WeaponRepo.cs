@@ -1,5 +1,4 @@
 ﻿using Project002.Repository.Interfaces;
-using Project002.Repository.Migrations;
 using Project002.Repository.Models;
 using System;
 using System.Collections.Generic;

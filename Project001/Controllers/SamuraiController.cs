@@ -44,8 +44,22 @@ namespace Project002Api.Controllers
             return samurai;
         }
 
+        [HttpPost("Wednesday")]
+        public void CreateSamuraiWithLists(Samurai samurai)
+        {
+            _samuraiRepo.CreateSamuraiWithLists(samurai);
+        }
+
+
         //Creates a samurai by passin an Samurai object to the _samuraiRepo.Create() method.
-        
+
+        [HttpPost("createMore")]
+        public void CreateModels(Samurai samurai)
+        {
+
+        }
+
+
         [HttpPost]
         public ActionResult Create(Samurai samurai)
         {

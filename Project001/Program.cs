@@ -21,17 +21,20 @@ namespace Project001
             string conStr = @"Server=DESKTOP-D528M49; Database=Project002; Trusted_Connection=true";
 
             //DI (Dependency Injection) - activation
+            builder.Services.AddScoped<IFrontPageRepository, FrontRepo>();
             builder.Services.AddScoped<ISamuraiRepository, SamuraiRepo>();
             builder.Services.AddScoped<IWarRepository, WarRepo>();
             builder.Services.AddScoped<IClanRepository, ClanRepo>();
             builder.Services.AddScoped<IWeaponRepository, WeaponRepo>();
             builder.Services.AddScoped<IHorseRepository, HorseRepo>();
-            builder.Services.AddScoped<IClothingRepository, ClothingRepo>();
             builder.Services.AddScoped<IArmourRepository, ArmourRepo>();
-            builder.Services.AddScoped<IRankRepository, RankRepo>();
-            builder.Services.AddScoped<ITimePeriodRepository, TimePeriodRepo>();
+           
+
+
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddDbContext<Dbcontext>(obj => obj.UseSqlServer(conStr));
+            builder.Services.AddDbContext<Dbcontext>(options => options.UseSqlServer(conStr));
+
             //builder.Services.AddControllers().AddJsonOptions(x =>
             //    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
             builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
@@ -58,8 +61,10 @@ namespace Project001
 
                     var app = builder.Build();
 
-                    // Configure the HTTP request pipeline.
-                    if (app.Environment.IsDevelopment())
+
+
+            // Configure the HTTP request pipeline.
+            if (app.Environment.IsDevelopment())
                     {
                         app.UseSwagger();
                         app.UseSwaggerUI();

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project002.Repository.Models;
 
@@ -11,9 +12,10 @@ using Project002.Repository.Models;
 namespace Project002.Repository.Migrations
 {
     [DbContext(typeof(Dbcontext))]
-    partial class DbcontextModelSnapshot : ModelSnapshot
+    [Migration("20240507112941_imgname")]
+    partial class imgname
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,6 +54,21 @@ namespace Project002.Repository.Migrations
                     b.ToTable("ClanWar");
                 });
 
+            modelBuilder.Entity("ClothingSamurai", b =>
+                {
+                    b.Property<int>("ClothingId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SamuraiId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ClothingId", "SamuraiId");
+
+                    b.HasIndex("SamuraiId");
+
+                    b.ToTable("ClothingSamurai");
+                });
+
             modelBuilder.Entity("Project002.Repository.Models.Armour", b =>
                 {
                     b.Property<int?>("ArmourId")
@@ -85,6 +102,27 @@ namespace Project002.Repository.Migrations
                     b.HasKey("ClanId");
 
                     b.ToTable("Clan");
+                });
+
+            modelBuilder.Entity("Project002.Repository.Models.Clothing", b =>
+                {
+                    b.Property<int>("ClothingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClothingId"), 1L, 1);
+
+                    b.Property<string>("ClothingDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClothingName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ClothingId");
+
+                    b.ToTable("Clothing");
                 });
 
             modelBuilder.Entity("Project002.Repository.Models.FrontPage", b =>
@@ -131,6 +169,22 @@ namespace Project002.Repository.Migrations
                     b.ToTable("Horse");
                 });
 
+            modelBuilder.Entity("Project002.Repository.Models.Rank", b =>
+                {
+                    b.Property<int?>("RankId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("RankId"), 1L, 1);
+
+                    b.Property<string>("RankName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RankId");
+
+                    b.ToTable("Rank");
+                });
+
             modelBuilder.Entity("Project002.Repository.Models.Samurai", b =>
                 {
                     b.Property<int>("SamuraiId")
@@ -149,6 +203,9 @@ namespace Project002.Repository.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("RankId")
+                        .HasColumnType("int");
+
                     b.Property<string>("SamuraiName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -157,7 +214,26 @@ namespace Project002.Repository.Migrations
 
                     b.HasIndex("ClanId");
 
+                    b.HasIndex("RankId");
+
                     b.ToTable("Samurai");
+                });
+
+            modelBuilder.Entity("Project002.Repository.Models.TimePeriod", b =>
+                {
+                    b.Property<int>("TimePeriodId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TimePeriodId"), 1L, 1);
+
+                    b.Property<string>("Date")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TimePeriodId");
+
+                    b.ToTable("TimePeriod");
                 });
 
             modelBuilder.Entity("Project002.Repository.Models.War", b =>
@@ -228,6 +304,21 @@ namespace Project002.Repository.Migrations
                     b.ToTable("SamuraiWeapon");
                 });
 
+            modelBuilder.Entity("TimePeriodWar", b =>
+                {
+                    b.Property<int>("TimePeriodId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WarId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TimePeriodId", "WarId");
+
+                    b.HasIndex("WarId");
+
+                    b.ToTable("TimePeriodWar");
+                });
+
             modelBuilder.Entity("ArmourSamurai", b =>
                 {
                     b.HasOne("Project002.Repository.Models.Armour", null)
@@ -258,6 +349,21 @@ namespace Project002.Repository.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ClothingSamurai", b =>
+                {
+                    b.HasOne("Project002.Repository.Models.Clothing", null)
+                        .WithMany()
+                        .HasForeignKey("ClothingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Project002.Repository.Models.Samurai", null)
+                        .WithMany()
+                        .HasForeignKey("SamuraiId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Project002.Repository.Models.Horse", b =>
                 {
                     b.HasOne("Project002.Repository.Models.Samurai", "Samurai")
@@ -273,7 +379,13 @@ namespace Project002.Repository.Migrations
                         .WithMany("Samurai")
                         .HasForeignKey("ClanId");
 
+                    b.HasOne("Project002.Repository.Models.Rank", "Rank")
+                        .WithMany("Samurai")
+                        .HasForeignKey("RankId");
+
                     b.Navigation("Clan");
+
+                    b.Navigation("Rank");
                 });
 
             modelBuilder.Entity("SamuraiWar", b =>
@@ -306,7 +418,27 @@ namespace Project002.Repository.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("TimePeriodWar", b =>
+                {
+                    b.HasOne("Project002.Repository.Models.TimePeriod", null)
+                        .WithMany()
+                        .HasForeignKey("TimePeriodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Project002.Repository.Models.War", null)
+                        .WithMany()
+                        .HasForeignKey("WarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Project002.Repository.Models.Clan", b =>
+                {
+                    b.Navigation("Samurai");
+                });
+
+            modelBuilder.Entity("Project002.Repository.Models.Rank", b =>
                 {
                     b.Navigation("Samurai");
                 });

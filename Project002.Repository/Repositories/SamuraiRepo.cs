@@ -18,6 +18,7 @@ namespace Project002.Repository.Repositories
         //this is dependency injection, 
         public SamuraiRepo(Dbcontext data)
         {
+            //context cannot be called outside of the scope. so, we are calling the global one and assigning it to global. so we can use it out of the scope as well.
             this.context = data;
         }
 
@@ -42,7 +43,6 @@ namespace Project002.Repository.Repositories
                 .Include (s=> s.War)
                 .Include (s=> s.Armour)
                 .Include(s=> s.Horse)
-                .Include(s=>s.Rank)
                 .ToList();
 
         }
@@ -86,7 +86,54 @@ namespace Project002.Repository.Repositories
             context.SaveChanges();
             return existingSamurai;
         }
-        
+
+        public void CreateSamuraiWithLists(Samurai samurai)
+        {
+            //Samurai samTheGoodGuy = new Samurai { SamuraiId = 0, SamuraiName = "bandit", Description = "blabla", Age = 167 };
+            Samurai sam = new Samurai()
+            {
+                SamuraiName = samurai.SamuraiName,
+                Description = samurai.Description,
+                Age = samurai.Age
+            };
+            context.Samurai.Add(sam);
+            foreach (Horse horse in samurai.Horse)
+            {
+                var result = context.Horse.Find(horse.HorseId);
+                if (result != null)
+                {
+                    sam.Horse.Add(result);
+                }
+            }
+            context.SaveChanges();
+            foreach (Armour armour in samurai.Armour)
+            {
+                var result = context.Armour.Find(armour.ArmourId);
+                if (result != null)
+                {
+                    sam.Armour.Add(result);
+                }
+            }
+            context.SaveChanges();
+            foreach (War war in samurai.War)
+            {
+                var result = context.War.Find(war.WarId);
+                if (result != null)
+                {
+                    sam.War.Add(result);
+                }
+            }
+            context.SaveChanges();
+            foreach (Weapon weapon in samurai.Weapon)
+            {
+                var result = context.Weapon.Find(weapon.WeaponId);
+                if (result != null)
+                {
+                    sam.Weapon.Add(result);
+                }
+            }
+            context.SaveChanges();
+        }
 
     }
 

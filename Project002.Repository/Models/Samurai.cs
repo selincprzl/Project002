@@ -29,14 +29,11 @@ namespace Project002.Repository.Models
 
         public Clan? Clan { get; set; } // Navigation property
 
-        public Rank? Rank { get; set; }
-
         public List<War>? War { get; set; }
 
 
         public List<Armour>? Armour { get; set; }
 
-        public List<Clothing>? Clothing { get; set; }
 
         public List<Horse>? Horse { get; set; }
 

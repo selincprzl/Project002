@@ -14,6 +14,7 @@ namespace Project002.Repository.Interfaces
         Samurai GetById(int id);
         bool Delete(Samurai samurai);
 
+        void CreateSamuraiWithLists(Samurai samurai);
         Samurai Update(Samurai samurai);
 
     }

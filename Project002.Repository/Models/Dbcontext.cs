@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Project002.Repository.Models;
 
 namespace Project002.Repository.Models
 {
@@ -26,15 +27,9 @@ namespace Project002.Repository.Models
         public DbSet <Weapon> Weapon { get; set; }
         public DbSet<Horse> Horse { get; set; }
 
-        public DbSet<Clothing> Clothing { get; set; }
-
         public DbSet<Armour> Armour { get; set; }
 
-        public DbSet<Rank> Rank { get; set; }
-
-        public DbSet<TimePeriod> TimePeriod { get; set; }
-
-        public DbSet<Admin> Admin { get; set; }
+        public DbSet<FrontPage> FrontPage { get; set; }
 
     }
 

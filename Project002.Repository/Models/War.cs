@@ -18,7 +18,6 @@ namespace Project002.Repository.Models
         public List<Clan>? Clans { get; set; }
         public List<Samurai>? Samurai { get; set; }
 
-        public List<TimePeriod>? TimePeriod { get; set; }
 
 
 

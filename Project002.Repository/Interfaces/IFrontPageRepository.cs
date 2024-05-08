@@ -7,14 +7,9 @@ using System.Threading.Tasks;
 
 namespace Project002.Repository.Interfaces
 {
-    public interface IRankRepository
+    public interface IFrontPageRepository
     {
-        Rank Create(Rank rank);
-        List<Rank> GetAll();
-        Rank GetById(int id);
+        List<FrontPage> GetAll();
 
-        bool Delete(Rank rank);
-
-        Rank Update(Rank rank);
     }
 }

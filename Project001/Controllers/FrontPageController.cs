@@ -3,33 +3,24 @@ using Project002.Repository.Interfaces;
 using Project002.Repository.Models;
 using Project002.Repository.Repositories;
 
-
 namespace Project001.Controllers
 {
-    [Route("api/[controller]")] //our url
-    [ApiController]
-    public class FrontPageController : ControllerBase
+    [Route("api/[controller]")] // Defines the URL route to access this controller
+    [ApiController] // Indicates that this class is a controller for API endpoints
+    public class FrontPageController : ControllerBase // Inherits from the base controller class
+    {
+        private readonly IFrontPageRepository _frontPageRepo; // like a container that holds information about front pages
 
-    {   //_frontRepo is like a container that holds informations about fronts
-        //readonly means, it cannot be changed once its set.
-        private readonly IFrontPageRepository _frontPageRepo;
-
-        //sets up the FrontController to use a repository for fronts, storing it as _clanRepo. (signature)
-        public FrontPageController(IFrontPageRepository repo)
+        public FrontPageController(IFrontPageRepository repo) // Constructor to set up the controller to use FrontPageRepository
         {
-            this._frontPageRepo = repo;
+            this._frontPageRepo = repo; // Keeps track of the repository instance
         }
 
-        //Method that brings all the fronts.
-        //IEnumerable means that the GetAll() is returning a list of Front objects that can be loop through.
-        [HttpGet] //this is a DataAnnotation / Attribute /its a rule. defines what method is able to do or a class
-        public IEnumerable<FrontPage> GetAll()
+        [HttpGet] // this is a DataAnnotation / Attribute / it's a rule. defines what method or class is able to do
+        public IEnumerable<FrontPage> GetAll() // Method to get all the front page data
         {
-            var result = _frontPageRepo.GetAll();
-            return result;
-
+            var result = _frontPageRepo.GetAll(); // brings all of the front page data using the repository
+            return result; // Returns the front page data we got
         }
-
-       
     }
 }

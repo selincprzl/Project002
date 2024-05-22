@@ -3,80 +3,24 @@ using Project002.Repository.Interfaces;
 using Project002.Repository.Models;
 using Project002.Repository.Repositories;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace Project001.Controllers
 {
-    [Route("api/[controller]")] //our URL
-    [ApiController]
-    public class HorseController : ControllerBase
+    [Route("api/[controller]")] // Defines the URL route to access this controller
+    [ApiController] // Indicates that this class is a controller for API endpoints
+    public class HorseController : ControllerBase // Inherits from the base controller class
     {
-        private readonly IHorseRepository _horseRepo;
+        private readonly IHorseRepository _horseRepo; // like a container that holds information about horses
 
-        public HorseController(IHorseRepository repo)
+        public HorseController(IHorseRepository repo) // Constructor to set up the controller to use HorseRepository
         {
-            this._horseRepo = repo;
+            this._horseRepo = repo; // Keeps track of the repository instance
         }
 
-        [HttpGet]
-        public IEnumerable<Horse> GetAll()
+        [HttpGet] // this is a DataAnnotation / Attribute / it's a rule. defines what method or class is able to do
+        public IEnumerable<Horse> GetAll() // Method to get all the horse data
         {
-            var result = _horseRepo.GetAll();
-            return result;
-
-        }
-
-        [HttpPost]
-        public void Create(Horse horse)
-        {
-            _horseRepo.Create(horse);
-        }
-
-        [HttpPut("{id}")]
-        public ActionResult<Horse> Update(int id, Horse horse)
-        {
-            if (id != horse.HorseId)
-            {
-                return BadRequest("ID in the request path does not match the ID in the provided entity.");
-            }
-
-            var existingHorse = _horseRepo.GetById(id);
-            if (existingHorse == null)
-            {
-                return NotFound();
-            }
-
-            horse.HorseId = id;
-
-            _horseRepo.Update(horse);
-            return Ok(horse);
-        }
-
-
-        [HttpGet("{id}")]
-        public ActionResult<Horse> GetById(int id)
-        {
-            var horse = _horseRepo.GetById(id);
-            if (horse == null)
-            {
-                return NotFound();
-            }
-            return horse;
-        }
-
-
-        [HttpDelete("{id}")]
-        public bool Delete(int id)
-        {
-
-            Horse horseToDelete = _horseRepo.GetAll().FirstOrDefault(h => h.HorseId == id);
-
-            if (horseToDelete == null)
-            {
-                return false;
-            }
-
-            return _horseRepo.Delete(horseToDelete);
+            var result = _horseRepo.GetAll(); // brings all of the horse data using the repository
+            return result; // Returns the horse data we got
         }
     }
 }

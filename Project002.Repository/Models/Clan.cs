@@ -17,8 +17,8 @@ namespace Project002.Repository.Models
 
         public string? ClanName { get; set; }
 
-        [JsonIgnore]
-        public List<War>? Wars { get; set; }
+        public string? Description { get; set; }
+        public string? Img { get; set; }
 
         [JsonIgnore]
         public Samurai? Samurai { get; set; }

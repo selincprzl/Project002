@@ -12,8 +12,8 @@ using Project002.Repository.Models;
 namespace Project002.Repository.Migrations
 {
     [DbContext(typeof(Dbcontext))]
-    [Migration("20240508121712_ahhhhhhh")]
-    partial class ahhhhhhh
+    [Migration("20240521140243_hi")]
+    partial class hi
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,21 +39,6 @@ namespace Project002.Repository.Migrations
                     b.ToTable("ArmourSamurai");
                 });
 
-            modelBuilder.Entity("ClanWar", b =>
-                {
-                    b.Property<int>("ClansClanId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WarsWarId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ClansClanId", "WarsWarId");
-
-                    b.HasIndex("WarsWarId");
-
-                    b.ToTable("ClanWar");
-                });
-
             modelBuilder.Entity("Project002.Repository.Models.Armour", b =>
                 {
                     b.Property<int?>("ArmourId")
@@ -66,6 +51,9 @@ namespace Project002.Repository.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ArmourName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Img")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ArmourId");
@@ -82,6 +70,12 @@ namespace Project002.Repository.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("ClanId"), 1L, 1);
 
                     b.Property<string>("ClanName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Img")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("SamuraiId")
@@ -192,6 +186,9 @@ namespace Project002.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("WeaponId"), 1L, 1);
 
+                    b.Property<string>("Img")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("WeaponName")
                         .HasColumnType("nvarchar(max)");
 
@@ -226,21 +223,6 @@ namespace Project002.Repository.Migrations
                     b.HasOne("Project002.Repository.Models.Samurai", null)
                         .WithMany()
                         .HasForeignKey("SamuraiId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ClanWar", b =>
-                {
-                    b.HasOne("Project002.Repository.Models.Clan", null)
-                        .WithMany()
-                        .HasForeignKey("ClansClanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Project002.Repository.Models.War", null)
-                        .WithMany()
-                        .HasForeignKey("WarsWarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

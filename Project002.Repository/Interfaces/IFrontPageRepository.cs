@@ -9,7 +9,7 @@ namespace Project002.Repository.Interfaces
 {
     public interface IFrontPageRepository
     {
-        List<FrontPage> GetAll();
+        List<FrontPage> GetAll(); // Method signature to retrieve all armour data
 
     }
 }

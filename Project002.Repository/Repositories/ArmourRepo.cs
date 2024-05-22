@@ -1,5 +1,5 @@
-﻿using Project002.Repository.Interfaces;
-using Project002.Repository.Models;
+﻿using Project002.Repository.Interfaces; 
+using Project002.Repository.Models; 
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,61 +9,18 @@ using System.Threading.Tasks;
 
 namespace Project002.Repository.Repositories
 {
-    public class ArmourRepo : IArmourRepository
+    public class ArmourRepo : IArmourRepository // Class implementing the IArmourRepository interface
     {
-        private readonly Dbcontext context;
+        private readonly Dbcontext context; // Private variable to hold the database context
 
-        public ArmourRepo(Dbcontext data)
+        public ArmourRepo(Dbcontext data) // Constructor to initialize the ArmourRepo with a database context
         {
-            this.context = data;
+            this.context = data; // Assigning the database context provided to the private variable
         }
 
-        public Armour Create(Armour armour)
+        public List<Armour> GetAll() // Method to retrieve all armour data
         {
-            context.Armour.Add(armour);
-            context.SaveChanges();
-            return armour;
+            return context.Armour.ToList(); // Returning a list of all armour from the database context
         }
-
-        public List<Armour> GetAll()
-        {
-            return context.Armour.ToList();
-        }
-
-        public Armour GetById(int id)
-        {
-            return context.Armour.FirstOrDefault(c => c.ArmourId == id);
-        }
-
-        public bool Delete(Armour armour)
-        {
-            try
-            {
-                context.Armour.Remove(armour);
-                context.SaveChanges();
-                return true;
-
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
-
-        public Armour Update(Armour armour)
-        {
-            var existingArmour = context.Armour.Find(armour.ArmourId);
-            if (existingArmour == null)
-            {
-                throw new ArgumentException("Clan not found");
-
-            }
-
-            context.Entry(existingArmour).CurrentValues.SetValues(armour);
-
-            context.SaveChanges();
-            return existingArmour;
-        }
-
     }
 }

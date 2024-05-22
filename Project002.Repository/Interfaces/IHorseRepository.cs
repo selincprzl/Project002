@@ -10,11 +10,7 @@ namespace Project002.Repository.Interfaces
     public interface IHorseRepository
     {
 
-        Horse Create(Horse horse);
-        List<Horse> GetAll();
-        Horse GetById(int id);
-        bool Delete(Horse horse);
+        List<Horse> GetAll(); // Method signature to retrieve all armour data
 
-        Horse Update(Horse horse);
     }
 }

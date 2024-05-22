@@ -19,12 +19,12 @@ namespace Project002.Repository.Models
         }
 
 
-
+        // Represents the tables in the database
         public DbSet<Samurai> Samurai { get; set; }
 
         public DbSet<War> War { get; set; }
-        public DbSet <Clan> Clan { get; set; }
-        public DbSet <Weapon> Weapon { get; set; }
+        public DbSet<Clan> Clan { get; set; }
+        public DbSet<Weapon> Weapon { get; set; }
         public DbSet<Horse> Horse { get; set; }
 
         public DbSet<Armour> Armour { get; set; }

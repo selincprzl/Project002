@@ -9,13 +9,6 @@ namespace Project002.Repository.Interfaces
 {
     public interface IClanRepository
     {
-        Clan Create (Clan clan);
-        List<Clan> GetAll ();
-        Clan GetById(int id);
-
-        bool Delete (Clan clan);
-
-        Clan Update (Clan clan);  
-
+        List<Clan> GetAll(); // Method signature to retrieve all armour data
     }
 }

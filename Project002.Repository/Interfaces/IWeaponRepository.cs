@@ -9,14 +9,8 @@ namespace Project002.Repository.Interfaces
 {
     public interface IWeaponRepository
     {
-        Weapon Create (Weapon weapon);
+        List<Weapon> GetAll (); // Method signature to retrieve all armour data
 
-        List<Weapon> GetAll ();
-        Weapon GetById(int id);
-
-        bool Delete(Weapon weapon);
-
-        Weapon Update(Weapon weapon);
 
     }
 }

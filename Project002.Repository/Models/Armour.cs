@@ -14,6 +14,7 @@ namespace Project002.Repository.Models
 
         public string? ArmourDescription { get; set; }
 
+        public string? Img { get; set; }
         [JsonIgnore]
         public List<Samurai>? Samurai { get; set; }
 

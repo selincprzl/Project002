@@ -7,15 +7,10 @@ using System.Threading.Tasks;
 
 namespace Project002.Repository.Interfaces
 {
-    public interface IArmourRepository
+    public interface IArmourRepository 
     {
-        Armour Create(Armour armour);
-        List<Armour> GetAll();
-        Armour GetById(int id);
-
-        bool Delete(Armour armour);
-
-        Armour Update(Armour armour);
-
+        List<Armour> GetAll(); // Method signature to retrieve all armour data
     }
+
+
 }

@@ -22,22 +22,18 @@ namespace Project002.Repository.Repositories
             this.context = data;
         }
 
-       
-
-        public List<FrontPage> GetAll()
+        public List<FrontPage> GetAll() // Method to retrieve all frontpage data
         {
 
-            return context.FrontPage.ToList();
-            
-            
+            return context.FrontPage.ToList(); // Returning a list of all frontpage from the database context
+
+
         }
 
 
+    }
 
-     
-            }
-
-        }
+}
 
 
       

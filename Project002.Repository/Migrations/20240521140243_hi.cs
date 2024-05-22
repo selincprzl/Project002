@@ -4,7 +4,7 @@
 
 namespace Project002.Repository.Migrations
 {
-    public partial class ahhhhhhh : Migration
+    public partial class hi : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,7 +15,8 @@ namespace Project002.Repository.Migrations
                     ArmourId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ArmourName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ArmourDescription = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ArmourDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Img = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -72,7 +73,8 @@ namespace Project002.Repository.Migrations
                 {
                     WeaponId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    WeaponName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    WeaponName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Img = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -110,6 +112,8 @@ namespace Project002.Repository.Migrations
                     ClanId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ClanName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Img = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SamuraiId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -166,30 +170,6 @@ namespace Project002.Repository.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "ClanWar",
-                columns: table => new
-                {
-                    ClansClanId = table.Column<int>(type: "int", nullable: false),
-                    WarsWarId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ClanWar", x => new { x.ClansClanId, x.WarsWarId });
-                    table.ForeignKey(
-                        name: "FK_ClanWar_Clan_ClansClanId",
-                        column: x => x.ClansClanId,
-                        principalTable: "Clan",
-                        principalColumn: "ClanId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ClanWar_War_WarsWarId",
-                        column: x => x.WarsWarId,
-                        principalTable: "War",
-                        principalColumn: "WarId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_ArmourSamurai_SamuraiId",
                 table: "ArmourSamurai",
@@ -199,11 +179,6 @@ namespace Project002.Repository.Migrations
                 name: "IX_Clan_SamuraiId",
                 table: "Clan",
                 column: "SamuraiId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ClanWar_WarsWarId",
-                table: "ClanWar",
-                column: "WarsWarId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Horse_SamuraiId",
@@ -222,7 +197,7 @@ namespace Project002.Repository.Migrations
                 name: "ArmourSamurai");
 
             migrationBuilder.DropTable(
-                name: "ClanWar");
+                name: "Clan");
 
             migrationBuilder.DropTable(
                 name: "FrontPage");
@@ -234,19 +209,16 @@ namespace Project002.Repository.Migrations
                 name: "SamuraiWeapon");
 
             migrationBuilder.DropTable(
-                name: "Armour");
-
-            migrationBuilder.DropTable(
-                name: "Clan");
-
-            migrationBuilder.DropTable(
                 name: "War");
 
             migrationBuilder.DropTable(
-                name: "Weapon");
+                name: "Armour");
 
             migrationBuilder.DropTable(
                 name: "Samurai");
+
+            migrationBuilder.DropTable(
+                name: "Weapon");
         }
     }
 }

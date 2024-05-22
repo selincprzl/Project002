@@ -7,16 +7,12 @@ using System.Threading.Tasks;
 
 namespace Project002.Repository.Interfaces
 {
-    public interface ISamuraiRepository
+    public interface ISamuraiRepository // Interface to define methods for interacting with samurai data
     {
-        Samurai Create(Samurai samurai);
-        List<Samurai> GetAll();
-        Samurai GetById(int id);
-        bool Delete(Samurai samurai);
+        List<Samurai> GetAll(); // Method signature to retrieve all samurai data
 
-        void CreateSamuraiWithLists(Samurai samurai);
-        Samurai Update(Samurai samurai);
-
+        Samurai Create(Samurai samurai); // Method signature to create a new samurai
     }
+
 
 }
